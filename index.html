@@ -1,227 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protect Environment - Save Our Planet</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Amy's Learning Hub</title>
+    <meta name="description" content="Amy's personal learning journey – notes, progress, and resources.">
     <style>
-        /* 保留原样式不变 */
-        /* ...（此处省略CSS，与原版本一致）... */
+        :root {
+            --main-color: #4e6efd;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--main-color);
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            padding: 1rem;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--main-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--main-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* About section */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .about img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 50%;
+            border: 6px solid var(--main-color);
+            object-fit: cover;
+        }
+
+        /* Progress cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card h3 {
+            color: var(--main-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .progress {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--main-color);
+            border-radius: 5px;
+            width: 0;
+            /* Start from 0 for animation */
+            transition: width 1.5s ease;
+        }
+
+        /* Recent notes */
+        .notes ul {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .notes li {
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notes li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .notes li a:hover {
+            color: var(--main-color);
+        }
+
+        .notes li span {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #333;
+            color: #ddd;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--main-color);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                display: none;
+                background: rgba(0, 0, 0, 0.95);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
     <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-leaf"></i>
-                <span>Protect Environment</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Projects</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+        <h1>Amy's Learning Hub</h1>
+        <p>Documenting daily growth · Sharing the joy of learning</p>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect the Environment, Shape a Greener Tomorrow</h1>
-            <p>Join us in the mission to preserve nature, reduce pollution, and create a cleaner world for future generations.</p>
-            <a href="#get-involved" class="btn">Join Our Cause</a>
+    <nav>
+        <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">
+            <span></span><span></span><span></span>
         </div>
-    </section>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#progress">Progress</a></li>
+            <li><a href="#notes">Recent Notes</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Protect Environment</h2>
-                <p>We are a global movement dedicated to environmental protection, sustainability, and climate awareness.</p>
+    <main>
+        <section id="about" class="about">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face" alt="Profile photo">
+            <div>
+                <h2>About Me</h2>
+                <p>Hi, I'm Amy — a lifelong learner currently leveling up as a full-stack developer, designer, and
+                    language enthusiast.</p>
+                <p>Since 2024, I've been systematically studying front-end, back-end, algorithms, English, and more.
+                    This site is my public learning log, notebook, and resource hub.</p>
+                <p>I believe “to teach is to learn twice.” I hope something here helps you on your own journey too!</p>
             </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2070&q=80" alt="Volunteers cleaning nature">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Protect Environment is committed to reducing waste, conserving resources, and restoring natural habitats through education, community initiatives, and global cooperation.</p>
-                    <p>Founded in 2012, we’ve worked with volunteers, schools, and organizations in over 100 countries to make environmental action accessible to everyone.</p>
-                    <p>Our programs focus on tree planting, clean energy, recycling, and ocean cleanup.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="3500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1800">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="60000">0</h3>
-                    <p>Volunteers Worldwide</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe"></i>
-                    <h3 class="counter" data-target="100">0</h3>
-                    <p>Countries Active</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Environmental Projects</h2>
-                <p>We lead impactful projects to protect forests, oceans, and communities around the world.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=2070&q=80" alt="Tree Planting">
+        <section id="progress">
+            <h2>Current Learning Progress</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>HTML / CSS / JavaScript</h3>
+                    <p>Able to build responsive websites independently</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:95%"></div>
                     </div>
-                    <div class="initiative-content">
-                        <h3>Reforestation Campaign</h3>
-                        <p>Restoring damaged forests and planting native trees to support biodiversity and fight climate change.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
+                    <small>95%</small>
                 </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1608308030650-49b96b8d5a57?auto=format&fit=crop&w=2070&q=80" alt="Plastic Cleanup">
+                <div class="card">
+                    <h3>React + TypeScript</h3>
+                    <p>Mastered Hooks, state management, Next.js</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:80%"></div>
                     </div>
-                    <div class="initiative-content">
-                        <h3>Plastic-Free Oceans</h3>
-                        <p>Removing plastic waste from beaches and seas, and promoting eco-friendly alternatives worldwide.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
+                    <small>80%</small>
                 </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1561489396-8887c1c04d30?auto=format&fit=crop&w=2070&q=80" alt="Renewable Energy">
+                <div class="card">
+                    <h3>Algorithms & Data Structures</h3>
+                    <p>300+ LeetCode problems solved</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:65%"></div>
                     </div>
-                    <div class="initiative-content">
-                        <h3>Clean Energy Projects</h3>
-                        <p>Supporting renewable energy adoption and energy efficiency for a sustainable planet.</p>
-                        <a href="#" class="btn">Learn More</a>
+                    <small>65%</small>
+                </div>
+                <div class="card">
+                    <h3>English (IELTS 7.0 target)</h3>
+                    <p>Daily vocabulary, speaking practice, and writing</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:70%"></div>
                     </div>
+                    <small>70%</small>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join the Movement for a Cleaner Planet</h2>
-            <p>Your actions can make a real difference. Volunteer, donate, or spread awareness — every step counts.</p>
-            <a href="#" class="btn">Get Involved</a>
-        </div>
-    </section>
+        <section id="notes" class="notes">
+            <h2>Recent Notes</h2>
+            <ul>
+                <li><a href="#">Frontend Trends 2025 Summary</a> <span>Nov 20, 2025</span></li>
+                <li><a href="#">React 19 New Features in Practice</a> <span>Nov 15, 2025</span></li>
+                <li><a href="#">From Zero to One: Building a Personal Blog with Next.js + MDX</a>
+                    <span>Nov 10, 2025</span></li>
+                <li><a href="#">LeetCode Weekly Problem Explained #23</a> <span>Nov 08, 2025</span></li>
+                <li><a href="#">50 High-Scoring English Writing Sentences</a> <span>Nov 05, 2025</span></li>
+            </ul>
+        </section>
+    </main>
 
-    <!-- Footer -->
     <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Protect Environment</h3>
-                    <p>Working together to preserve nature, promote sustainability, and secure a healthy environment for future generations.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#initiatives">Projects</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Forest Restoration</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Living</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Green Valley Road, San Francisco, USA</p>
-                    <p><i class="fas fa-phone"></i> +1 (800) 555-ENV</p>
-                    <p><i class="fas fa-envelope"></i> support@protectenvironment.org</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Protect Environment. All rights reserved.</p>
-            </div>
-        </div>
+        <p>© 2025 Amy's Learning Hub | <a href="mailto:your@email.com">Email me</a> · <a
+                href="https://github.com/yourname" target="_blank">GitHub</a></p>
     </footer>
 
     <script>
-        // 与原来相同的JS逻辑
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
-
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200;
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const inc = target / speed;
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
-        window.addEventListener('load', animateCounters);
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    document.querySelector('nav ul').classList.remove('active');
+        // Progress bar animation when in viewport
+        const bars = document.querySelectorAll('.progress-bar');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.style.width;
+                    entry.target.style.width = '0%';
+                    setTimeout(() => entry.target.style.width = width, 100);
                 }
             });
         });
+        bars.forEach(bar => observer.observe(bar));
     </script>
 </body>
+
 </html>
